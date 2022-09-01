@@ -1,15 +1,41 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import * as Yup from 'yup'
+import Alerta from './Alerta'
 
 const Formulario =() =>{
 
     const nuevoClienteSchemma = Yup.object().shape({
-        nombre: Yup.string().required('El nombre del cliente es obligatorio'),
-    
+        nombre: Yup.string()
+        .min(3,'Ingresar el mínimo de caracteres')
+        .max(10,'Ha sobrepasado el máximo de caracteres')
+        .required('El nombre del cliente es obligatorio'),
+        empresa: Yup.string()
+        .required('El nombre de la empresa es obligatorio'),
+        email: Yup.string()
+        .required('El nombre del email es obligatorio')
+        .email('Ingresar un correo válido'),
+        telefono: Yup.number().typeError('Ingresar un teléfono válido')
+        .integer('Numero telefónico incorrecto')
+        .positive('Ingresar nuevamente un teléfono')
     })
     
-    const handleSubmit =(valores) =>{
-        console.log(valores)
+    const handleSubmit = async (valores) =>{ // MÉTODO POS PARA CREAR CLIENTE
+       
+       try {
+        const url= 'http://localhost:4000/clientes'
+        const respuesta = await fetch(url,{
+            method:'POST',
+            body: JSON.stringify(valores), 
+            headers:{ // en la mayoría primero se lee el headers donde puede colocar la autenticación
+                'Content-type':'application/json'
+            }
+        })
+        console.log(respuesta)
+        const resultado = await respuesta.json()
+        console.log(resultado)
+       } catch (error) {
+        console.log(error)
+       }
     }
     return (
         <div className="mt-5 bg-white px-5 py-8 md:w-3/4 mx-auto shadow-lg rounded-md">
@@ -42,10 +68,10 @@ const Formulario =() =>{
                        type='text'
                        name='nombre'
                        />
-                       {errors.nombre && touched.nombre ? ( // el touched se usa cuando quiere tu validacion en tiempo real y no esperar el asubmit
-                        <div className='bg-red-400 mt-2 font-bold py-2 text-center rounded-sm'>
+                       {errors.nombre && touched.nombre ? ( // el touched se usa cuando quiere tu validacion en tiempo real y no esperar el submit
+                       <Alerta>
                             {errors.nombre}
-                        </div>
+                        </Alerta>
                        ) : null}
                     </div>
                     <div className='my-4'>
@@ -56,7 +82,11 @@ const Formulario =() =>{
                        type='text'
                        name='empresa'
                        />
-                       
+                       {errors.empresa && touched.empresa ? ( // el touched se usa cuando quiere tu validacion en tiempo real y no esperar el submit
+                       <Alerta>
+                            {errors.empresa}
+                        </Alerta>
+                       ) : null}
                     </div>
                     <div className='my-4'>
                         <label className='text-gray-400 text-lg' htmlFor="email">E-mail:</label>
@@ -66,6 +96,11 @@ const Formulario =() =>{
                        type='email'
                        name='email'
                        />
+                       {errors.email && touched.email ? ( // el touched se usa cuando quiere tu validacion en tiempo real y no esperar el submit
+                       <Alerta>
+                            {errors.email}
+                        </Alerta>
+                       ) : null}
                     </div>
                     <div className='my-4'>
                         <label className='text-gray-400 text-lg' htmlFor="telefono">Teléfono:</label>
@@ -75,6 +110,11 @@ const Formulario =() =>{
                        type='tel'
                        name='telefono'
                        />
+                       {errors.telefono && touched.telefono ? ( // el touched se usa cuando quiere tu validacion en tiempo real y no esperar el submit
+                       <Alerta>
+                            {errors.telefono}
+                        </Alerta>
+                       ) : null}
                     </div>
                     <div className='my-4'>
                         <label className='text-gray-400 text-lg' htmlFor="notas">Notas:</label>

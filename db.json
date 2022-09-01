@@ -1,0 +1,12 @@
+{
+  "clientes": [
+    {
+      "nombre": "jilver",
+      "empresa": "Tech Leader",
+      "email": "jilver.soporte@gmail.com",
+      "telefono": "+51 989969593",
+      "notas": "Nuevo Cliente moroso",
+      "id": 1
+    }
+  ]
+}
