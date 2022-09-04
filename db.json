@@ -7,6 +7,22 @@
       "telefono": "+51 989969593",
       "notas": "Nuevo Cliente moroso",
       "id": 1
+    },
+    {
+      "nombre": "jilver",
+      "empresa": "asas",
+      "email": "jilver.soporte@gmail.com",
+      "telefono": "+51 989969593",
+      "notas": "wqafdergfre",
+      "id": 2
+    },
+    {
+      "nombre": "jilver",
+      "empresa": "asddsad",
+      "email": "jilver.soporte@gmail.com",
+      "telefono": "+51 989969593",
+      "notas": "tyhyt",
+      "id": 3
     }
   ]
 }

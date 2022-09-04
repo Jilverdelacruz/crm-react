@@ -1,10 +1,29 @@
 
-
+import ListaClientes from "../componentes/ListaClientes"
+import {useState,useEffect} from 'react'
 const Inicio = () =>{
 
+    const [clientes, SetClientes] = useState([])
+
+    useEffect( ()=>{
+        const cargarClientes =(async ()=>{
+            try {
+            const url = 'http://localhost:4000/clientes'  
+            const respuesta = await fetch(url)
+            const resultado = await respuesta.json()
+            SetClientes(resultado)
+            } catch (error) {
+                console.log(error)
+            } 
+            
+        })
+        cargarClientes()
+    }, [])
     return (
         <div>
-            <h1>Inicio</h1>
+             <h1 className="font-bold text-4xl text-indigo-500">Lista de Clientes</h1>
+            <p className="text-xl mt-5 font-semibold text-gray-500">Visualización de los clientes registrados</p>
+            < ListaClientes />
             
         </div>
     )

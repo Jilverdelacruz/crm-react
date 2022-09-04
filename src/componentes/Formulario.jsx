@@ -1,9 +1,10 @@
-import {Formik, Form, Field, ErrorMessage} from 'formik'
+import {Formik, Form, Field} from 'formik'
+import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import Alerta from './Alerta'
 
 const Formulario =() =>{
-
+    const navigate = useNavigate()
     const nuevoClienteSchemma = Yup.object().shape({
         nombre: Yup.string()
         .min(3,'Ingresar el mínimo de caracteres')
@@ -30,9 +31,7 @@ const Formulario =() =>{
                 'Content-type':'application/json'
             }
         })
-        console.log(respuesta)
         const resultado = await respuesta.json()
-        console.log(resultado)
        } catch (error) {
         console.log(error)
        }
@@ -51,8 +50,10 @@ const Formulario =() =>{
 
             }}
             // leyendo los valores
-            onSubmit={(valores)=>{
-                handleSubmit(valores)
+            onSubmit={async (valores, {resetForm})=>{ // como es un arrow function se le puede agregar el async
+                await handleSubmit(valores) // el await se usa para que primero espere que mande los valores y recien lo resetee
+                resetForm()
+                navigate('/clientes')
             }}
           
             validationSchema={nuevoClienteSchemma} // para que se aplique la validación
