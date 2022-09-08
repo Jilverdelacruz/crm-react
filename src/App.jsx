@@ -3,6 +3,7 @@ import Layout from './layout/Layout'
 import Inicio from './paginas/Inicio'
 import NuevoCliente from './paginas/NuevoCliente'
 import EditarCliente from './paginas/EditarCliente'
+import VerCliente from './paginas/VerCliente'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
               <Route index element={<Inicio />}/>  {/*Es una ruta individual, donde se mostrará en la misma ruta del master page, para ello será necesario usar el Outlet, en este caso en el componenete Inicio */}
               <Route path='nuevo' element={<NuevoCliente />}/> {/* Es una ruta individual donde la ruta se agregará a la ruta principal y tambien verás el master page*/}
               <Route path='editar/:id' element={<EditarCliente />}/>{/*Para la ruta donde se requiere un id dinámico, :id*/ }
+              <Route path=':id' element={<VerCliente />}/>
             </Route>
         </Routes>
       </BrowserRouter>

@@ -1,29 +1,27 @@
+import {useNavigate} from 'react-router-dom'
 
 
-const ListaClientes = () => {
-    
+const ListaClientes = ({cliente}) => {
+     const {id, nombre, telefono, email, empresa} = cliente
+     const navigate = useNavigate()
+   
+     
     return (
-            <table className="w-full table-auto mt-5 shadow-md bg-white text-center">
-                <thead className='bg-indigo-500 text-white'>
-                    <tr>
-                        <th className="p-2">Nombre</th>
-                        <th className="p-2">Contacto</th>
-                        <th className="p-2">Empresa</th>
-                        <th className="p-2">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Nombre de Cliente</td>
-                        <td>Nombre de Empresa</td>
-                        <td>Empresa</td>
-                        <td className="p-2 flex flex-rpw">
-                            <button className="bg-yellow-400 p-2 px-5 rounded-md hover:shadow-lg hover:shadow-yellow-300/70">Editar</button>
-                            <button className="bg-red-400 p-2 px-5 rounded-md hover:shadow-lg hover:shadow-red-300/70">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <tr>
+            <td className="p-3">{nombre}</td>
+            <td className="p-3">
+            <p ><span className="font-bold">Email:</span>{email}</p>
+            <p ><span className="font-bold">Teléfono:</span>{telefono}</p>
+            </td>
+            <td className="p-3">{empresa}</td>
+            <td className="p-3 md:flex md:flex-row md:justify-around ">
+            <button className=" bg-green-500 p-2 px-5 rounded-md hover:shadow-lg hover:shadow-green-300/70"
+            onClick={()=> navigate(`/clientes/${id}`)}
+            >Visualizar</button>
+            <button className=" bg-yellow-400  p-2 px-5 rounded-md hover:shadow-lg hover:shadow-yellow-300/70">Editar</button>
+            <button className="bg-red-400 p-2 px-5 rounded-md hover:shadow-lg hover:shadow-red-300/70">Eliminar</button>
+            </td>
+        </tr>
     
     )
 }
