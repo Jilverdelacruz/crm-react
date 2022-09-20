@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import Alerta from './Alerta'
 
-const Formulario =() =>{
+const Formulario =({cliente}) =>{
     const navigate = useNavigate()
     const nuevoClienteSchemma = Yup.object().shape({
         nombre: Yup.string()
@@ -42,13 +42,14 @@ const Formulario =() =>{
             <Formik
             // Para obtener los valores se usa initialValues
             initialValues={{
-                nombre:'',
-                empresa:'',
-                email:'',
-                telefono:'',
-                notas:''
+                nombre: cliente.nombre,
+                empresa: cliente.empresa,
+                email: cliente.email,
+                telefono: cliente.telefono,
+                notas: cliente.notas
 
             }}
+            enableReinitialize={true} // necesario para que los valores para el editar
             // leyendo los valores
             onSubmit={async (valores, {resetForm})=>{ // como es un arrow function se le puede agregar el async
                 await handleSubmit(valores) // el await se usa para que primero espere que mande los valores y recien lo resetee
@@ -140,4 +141,7 @@ const Formulario =() =>{
     )
 }
 
+Formulario.defaultProps = {  // INDICA QUE POR DEFECTO SERA UN OBJETO VACÍO de  las cuales no mandará ninguna data al initialvalues (se usarioa para crear un nuevo usuario) y si tiene dato se usasará para editar cliente
+    cliente:{}
+}
 export default Formulario

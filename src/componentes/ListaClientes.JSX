@@ -5,7 +5,6 @@ const ListaClientes = ({cliente}) => {
      const {id, nombre, telefono, email, empresa} = cliente
      const navigate = useNavigate()
    
-     
     return (
         <tr>
             <td className="p-3">{nombre}</td>
@@ -18,7 +17,9 @@ const ListaClientes = ({cliente}) => {
             <button className=" bg-green-500 p-2 px-5 rounded-md hover:shadow-lg hover:shadow-green-300/70"
             onClick={()=> navigate(`/clientes/${id}`)}
             >Visualizar</button>
-            <button className=" bg-yellow-400  p-2 px-5 rounded-md hover:shadow-lg hover:shadow-yellow-300/70">Editar</button>
+            <button className=" bg-yellow-400  p-2 px-5 rounded-md hover:shadow-lg hover:shadow-yellow-300/70"
+            onClick={()=> navigate(`/clientes/editar/${id}`)}
+            >Editar</button>
             <button className="bg-red-400 p-2 px-5 rounded-md hover:shadow-lg hover:shadow-red-300/70">Eliminar</button>
             </td>
         </tr>
