@@ -2,8 +2,9 @@ import {Formik, Form, Field} from 'formik'
 import {useNavigate} from 'react-router-dom'
 import * as Yup from 'yup'
 import Alerta from './Alerta'
+import Spinner from './Spinner'
 
-const Formulario =({cliente}) =>{
+const Formulario =({cliente, cargando}) =>{
     const navigate = useNavigate()
     const nuevoClienteSchemma = Yup.object().shape({
         nombre: Yup.string()
@@ -37,16 +38,21 @@ const Formulario =({cliente}) =>{
        }
     }
     return (
+        cargando ? 
+        <Spinner /> :
         <div className="mt-5 bg-white px-5 py-8 md:w-3/4 mx-auto shadow-lg rounded-md">
-            <h2 className="text-2xl font-bold text-gray-500 text-center"> Agregar Cliente</h2>
+            
+            <h2 className="text-2xl font-bold text-gray-500 text-center">{cliente.nombre ? 'Editar CLiente' : 'Agregar Cliente'}</h2>
+          
+            
             <Formik
             // Para obtener los valores se usa initialValues
             initialValues={{
-                nombre: cliente.nombre,
-                empresa: cliente.empresa,
-                email: cliente.email,
-                telefono: cliente.telefono,
-                notas: cliente.notas
+                nombre: cliente?.nombre ?? '', // indica que si está existe nombre.nombre (para el editar) ingrésalo en el registro y si el objetvo está vacío le pasamos las comillas de vácio es como decir cliente.empresa ? cliente.empresa : ''.
+                empresa: cliente?.empresa ?? '',
+                email: cliente?.email ?? '',
+                telefono: cliente?.telefono ?? '',
+                notas: cliente?.notas ?? ''
 
             }}
             enableReinitialize={true} // necesario para que los valores para el editar
@@ -128,8 +134,9 @@ const Formulario =({cliente}) =>{
                        name='notas'
                        />
                     </div>
+                    
                     <input className='text-lg font-bold text-white bg-indigo-500 uppercase py-3 px-4 rounded-md w-full hover:shadow-lg hover:shadow-indigo-400'
-                    value='Guardar'
+                    value={cliente.nombre ? 'Editar' : 'Guardar'}
                     type='submit'
                     
                     />
@@ -138,6 +145,8 @@ const Formulario =({cliente}) =>{
                 )}
             </Formik>
         </div>
+        
+        
     )
 }
 

@@ -21,7 +21,7 @@ const VerCliente =() =>{
         }
      setTimeout(()=>{ // Una vez que cargue el la data tiene que desaparecer el spiiner
         setCargando(false)
-     }, 1000)   
+     }, 500)   
     
     }
     cargarCliente()

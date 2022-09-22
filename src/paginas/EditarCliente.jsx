@@ -13,8 +13,9 @@ const EditarCliente = () =>{
            const  respuesta = await fetch (url)
            const resultado= await respuesta.json()
             setCliente(resultado)
+            setCargando(false)
         })
-
+        
         cargarCliente()
     }, [])
     return (
@@ -23,6 +24,7 @@ const EditarCliente = () =>{
             <p className="text-xl mt-5 font-semibold text-gray-500">Edite los siguientes campos para registrar un cliente</p>
             <Formulario 
             cliente={cliente} //Estaremos enviando el objeto al mismo componente formulario que se uso para crear
+            cargando={cargando}
             />
         </>
     )
